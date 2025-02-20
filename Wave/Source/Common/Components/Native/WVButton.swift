@@ -1,5 +1,5 @@
 //
-//  ButtonStyle.swift
+//  WVButton.swift
 //  Wave
 //
 //  Created by Temur Chitashvili on 20.02.25.
@@ -10,11 +10,11 @@ import SwiftUI
 // MARK: - Enum to define button styles
 enum ButtonStyle {
     case primary
-    case primaryDisabled 
+    case primaryDisabled
 }
 
 // MARK: - Custom Button
-struct RSButton: View {
+struct WVButton: View {
     let buttonText: String   // Button label text
     let buttonStyle: ButtonStyle // Button style (primary or disabled)
     let action: () -> Void   // Action when tapped
@@ -72,24 +72,4 @@ struct RSButton: View {
     private var isDisabled: Bool {
         buttonStyle == .primaryDisabled
     }
-}
-
-// MARK: - Preview
-struct ContentView: View {
-    var body: some View {
-        VStack(spacing: 20) {
-            RSButton(buttonText: "Primary", buttonStyle: .primary) {
-                print("Primary Button Tapped")
-            }
-            
-            RSButton(buttonText: "Disabled", buttonStyle: .primaryDisabled) {
-                print("This won't trigger")
-            }
-        }
-        .padding()
-    }
-}
-
-#Preview {
-    ContentView()
 }
