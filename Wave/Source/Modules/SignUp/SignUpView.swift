@@ -1,17 +1,19 @@
 //
-//  ContentView.swift
+//  SignUpView.swift
 //  Wave
 //
-//  Created by Temur Chitashvili on 20.02.25.
+//  Created by Temur Chitashvili on 21.02.25.
 //
+
 
 import SwiftUI
 
-struct LogInView: View {
-    @Bindable var vm: LogInViewModel
+struct SignUpView: View {
+    @Bindable var vm: SignUpViewModel
     @EnvironmentObject var router: NavigationManager
+
     let socialMediaButtonsArray: [String] = ["google", "facebook", "apple"]
-    
+
     var body: some View {
         ZStack {
             Color
@@ -20,28 +22,29 @@ struct LogInView: View {
             
             content()
         }
+        .navigationBarBackButtonHidden()
     }
     
     private func content() -> some View {
-        VStack(spacing: 30) {
-            MyNavBar()
-            
-            loginCard()
-            
-            Spacer()
+        ScrollView {
+            VStack(spacing: 30) {
+                MyNavBar()
+                
+                signUpCard()
+                
+                Spacer()
+            }
         }
+        .scrollIndicators(.hidden)
         .padding(.horizontal)
     }
     
-    
-    private func loginCard() -> some View {
+    private func signUpCard() -> some View {
         VStack(spacing: 40) {
-            welcomeBack()
+            signUpGreeting()
             
             VStack(spacing: 24) {
                 loginForms()
-                
-                forgotPassword()
                 
                 buttons()
                 
@@ -69,41 +72,39 @@ struct LogInView: View {
         }
     }
     
-    private func welcomeBack() -> some View {
+    private func signUpGreeting() -> some View {
         VStack(spacing: 10) {
-            Text("Login")
+            Text("Sign Up")
                 .font(.system(size: 28, weight: .semibold))
                 .foregroundStyle(.myGreen)
             
-            Text("Welcome back! Please log in to access your account.")
+            Text("Join our community today! Create an account to unlock exclusive features and personalized experiences.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.gray.opacity(0.75))
                 .font(.system(size: 14, weight: .regular))
         }
-
     }
     
-    private func forgotPassword() -> some View {
-        Button {
-            print("Forgot Password")
-        } label: {
-            Text("Forgot Password?")
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(.white)
-                .underline()
-        }
-
-    }
     
     private func loginForms() -> some View {
         VStack(spacing: 20) {
+            YRBankTextField(text: $vm.name,
+                            placeHolder: "Enter First Name") {
+                vm.isFirstNameValid
+            }
+            
+            YRBankTextField(text: $vm.lastName,
+                                  placeHolder: "Enter Last Name") {
+                vm.isLastNameValid
+            }
+            
             YRBankTextField(text: $vm.email,
-                            placeHolder: "Enter your email") {
+                                  placeHolder: "Enter Your Email") {
                 vm.isEmailValid
             }
             
             YRBankSecureTextField(text: $vm.password,
-                                  placeHolder: "Enter your password") {
+                                  placeHolder: "Enter Your Password") {
                 vm.isPasswordValid
             }
         }
@@ -111,12 +112,12 @@ struct LogInView: View {
     
     private func buttons() -> some View {
         VStack(spacing: 24) {
-            YRBankButton(text: "Login", style: .primary) {
-                print("LogIn")
+            YRBankButton(text: "Sign Up", style: .primary) {
+                print("Sign Up")
             }
             
-            YRBankButton(text: "Sign Up", style: .secondary) {
-                router.navigate(to: .signUp)
+            YRBankButton(text: "Login", style: .secondary) {
+                router.navigateBack()
             }
         }
     }

@@ -24,8 +24,8 @@ struct WaveApp: App {
                 }
                 .navigationDestination(for: NavigationManager.Destination.self) { destination in
                     switch destination {
-                    case .result( _ ):
-                        Text("PAPA")
+                    case .signUp:
+                        SignUpView(vm: SignUpViewModel())
                     }
                 }
             }
