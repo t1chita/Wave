@@ -26,6 +26,8 @@ struct WaveApp: App {
                     switch destination {
                     case .signUp:
                         SignUpView(vm: SignUpViewModel())
+                    case .mainTabView:
+                        MainView()
                     }
                 }
             }

@@ -98,7 +98,7 @@ struct MerchantCell: View {
     
     private func esgCategoryAndValue() -> some View {
         HStack(spacing: 10) {
-            Text("ESG: \(merchant.category)")
+            Text("ESG: \(merchant.esgType)")
                 .font(.system(size: 9, weight: .regular))
                 .foregroundStyle(.gray.opacity(0.7))
                 .padding(.horizontal, 16)
@@ -115,7 +115,7 @@ struct MerchantCell: View {
                         }
                 )
             
-            Text("ESG value: 1 GEL = \(merchant.esgValue) ESGC")
+            Text("ESG value: 1 GEL = \(merchant.esgValueRatio) ESGC")
                 .font(.system(size: 9, weight: .regular))
                 .foregroundStyle(.gray.opacity(0.7))
                 .padding(.horizontal, 16)

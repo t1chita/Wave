@@ -10,6 +10,7 @@ import SwiftUI
 final class NavigationManager: ObservableObject {
     public enum Destination: Codable, Hashable {
         case signUp
+        case mainTabView
     }
     
     @Published var navPath = NavigationPath()

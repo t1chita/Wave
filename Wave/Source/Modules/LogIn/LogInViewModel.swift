@@ -12,7 +12,17 @@ final class LogInViewModel {
     var email: String = ""
     var password: String = ""
     
-    
-    var isEmailValid: Bool = true
+    var isEmailValid: Bool {
+         return email.isValidEmail && email.isStringValid
+     }
+     
     var isPasswordValid: Bool = true
+    
+    var isFormValid: Bool {
+        return isEmailValid && isPasswordValid
+    }
+    
+    func logIn(completion: @escaping (Bool) -> Void) {
+        UserManager.shared.logIn(withEmail: email, password: password, completion: completion)
+    }
 }

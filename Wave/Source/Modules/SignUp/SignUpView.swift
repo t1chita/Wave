@@ -112,8 +112,16 @@ struct SignUpView: View {
     
     private func buttons() -> some View {
         VStack(spacing: 24) {
-            YRBankButton(text: "Sign Up", style: .primary) {
-                print("Sign Up")
+            YRBankButton(text: "Sign Up", style: vm.isFormValid ? .primary : .primaryDisabled) {
+                vm.registerUser { result in
+                    switch result {
+                    case true:
+                        router.navigate(to: .mainTabView)
+                    case false:
+                        //TODO: Alert
+                        print("Can't Register")
+                    }
+                }
             }
             
             YRBankButton(text: "Login", style: .secondary) {

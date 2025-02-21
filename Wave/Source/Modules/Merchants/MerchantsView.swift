@@ -18,6 +18,7 @@ struct MerchantsView: View {
             
             content()
         }
+        .scrollIndicators(.hidden)
     }
     
     private func content() -> some View {
@@ -37,7 +38,7 @@ struct MerchantsView: View {
                 .font(.system(size: 28, weight: .semibold))
                 .foregroundStyle(.white)
             
-            Text("Explore exciting merchandise offered by our partnered stores  , offering environmentally clean items! Be part of shaping a better future!")
+            Text("Explore exciting merchandise offered by our partnered stores, offering environmentally clean items! Be part of shaping a better future!")
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(.gray.opacity(0.75))
                 .font(.system(size: 14, weight: .regular))

@@ -110,8 +110,16 @@ struct LogInView: View {
     
     private func buttons() -> some View {
         VStack(spacing: 24) {
-            YRBankButton(text: "Login", style: .primary) {
-                print("LogIn")
+            YRBankButton(text: "Login", style: vm.isFormValid ? .primary : .primaryDisabled) {
+                vm.logIn { result in
+                    switch result {
+                    case true:
+                        router.navigate(to: .mainTabView)
+                    case false:
+                        //TODO: Add Responsive Notf
+                        print("DEBUG: Can't Login In View")
+                    }
+                }
             }
             
             YRBankButton(text: "Sign Up", style: .secondary) {

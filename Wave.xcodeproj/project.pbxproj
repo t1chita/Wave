@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		267AA82A2D6913F700F452F6 /* NetworkingPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 267AA8292D6913F700F452F6 /* NetworkingPackage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		269C956B2D675F35000BC54B /* Wave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		267AA8312D691D6700F452F6 /* Exceptions for "Wave" folder in "Wave" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 269C956A2D675F35000BC54B /* Wave */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		269C956D2D675F35000BC54B /* Wave */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				267AA8312D691D6700F452F6 /* Exceptions for "Wave" folder in "Wave" target */,
+			);
 			path = Wave;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				267AA82A2D6913F700F452F6 /* NetworkingPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = Wave;
 			packageProductDependencies = (
+				267AA8292D6913F700F452F6 /* NetworkingPackage */,
 			);
 			productName = Wave;
 			productReference = 269C956B2D675F35000BC54B /* Wave.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = 269C95622D675F35000BC54B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				267AA8282D6913F700F452F6 /* XCRemoteSwiftPackageReference "Networking" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 269C956C2D675F35000BC54B /* Products */;
 			projectDirPath = "";
@@ -255,6 +277,7 @@
 				DEVELOPMENT_TEAM = R6XNAQSMZ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -285,6 +308,7 @@
 				DEVELOPMENT_TEAM = R6XNAQSMZ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Wave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -326,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		267AA8282D6913F700F452F6 /* XCRemoteSwiftPackageReference "Networking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/t1chita/Networking";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		267AA8292D6913F700F452F6 /* NetworkingPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 267AA8282D6913F700F452F6 /* XCRemoteSwiftPackageReference "Networking" */;
+			productName = NetworkingPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 269C95632D675F35000BC54B /* Project object */;
 }

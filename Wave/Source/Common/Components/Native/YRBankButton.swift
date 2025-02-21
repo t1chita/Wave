@@ -50,7 +50,7 @@ struct YRBankButton: View {
         case .primary:
             return .myNavBackground
         case .primaryDisabled:
-            return .gray.opacity(0.5)
+            return .white.opacity(0.8)
         case .secondary:
             return .white
         case .secondaryDisabled:
