@@ -9,9 +9,27 @@ import SwiftUI
 
 @main
 struct WaveApp: App {
+    @StateObject var router: NavigationManager = NavigationManager()
+    @AppStorage(UserDefaults.Keys.APP_SHOWED_ONBOARDING) var showedOnBoarding: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            LogInView()
+            NavigationStack(path: $router.navPath) {
+                Group {
+                    if showedOnBoarding {
+                        LogInView(vm: LogInViewModel())
+                    } else {
+                        OnBoardingView(vm: OnBoardingViewModel())
+                    }
+                }
+                .navigationDestination(for: NavigationManager.Destination.self) { destination in
+                    switch destination {
+                    case .result( _ ):
+                        Text("PAPA")
+                    }
+                }
+            }
+            .environmentObject(router)
         }
     }
 }
