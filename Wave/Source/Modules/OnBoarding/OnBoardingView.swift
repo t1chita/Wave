@@ -104,10 +104,9 @@ struct OnBoardingView: View {
                 VStack(spacing: -10) {
                     ForEach(Array(vm.transactions.enumerated()), id: \.element.id) { index, transaction in
                         TransactionCell(transaction: transaction)
-                            .frame(width: index == 1 ? 270 : index == 2 ? 260 : 290) // Adjust width dynamically
-                            .zIndex(Double(vm.transactions.count - index)) // Ensures first appears on top
-                            .opacity(index == 1 ? 0.7 : index == 2 ? 0.5 : 1) // Adjust width dynamically
-
+                            .frame(width: index == 1 ? 270 : index == 2 ? 260 : 290)
+                            .zIndex(Double(vm.transactions.count - index))
+                            .opacity(index == 1 ? 0.7 : index == 2 ? 0.5 : 1) 
                     }
                 }
             }
@@ -138,7 +137,6 @@ struct OnBoardingView: View {
                                    startPoint: .top,
                                    endPoint: .bottom)
                 )
-            
         }
         .padding(.horizontal, 26)
         .overlay(alignment: .topLeading) {

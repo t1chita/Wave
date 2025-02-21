@@ -15,7 +15,49 @@ struct MerchantsView: View {
             Color
                 .myBackground
                 .ignoresSafeArea()
-            Text("Merchants")
+            
+            content()
         }
     }
+    
+    private func content() -> some View {
+        VStack(spacing: 30) {
+            MyNavBar()
+            
+            description()
+            
+            merchantsList()
+        }
+        .padding(.horizontal)
+    }
+    
+    private func description() -> some View {
+        VStack(spacing: 10) {
+            Text("Merchants")
+                .font(.system(size: 28, weight: .semibold))
+                .foregroundStyle(.white)
+            
+            Text("Explore exciting merchandise offered by our partnered stores  , offering environmentally clean items! Be part of shaping a better future!")
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(.gray.opacity(0.75))
+                .font(.system(size: 14, weight: .regular))
+        }
+    }
+    
+    private func merchantsList() -> some View {
+        ScrollView {
+            VStack(spacing: 25) {
+                ForEach(vm.merchants) { merchant in
+                    MerchantCell(merchant: merchant) {
+                        print("Merchant Name: \(merchant.name)")
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+#Preview {
+    MainView()
 }

@@ -80,7 +80,6 @@ struct LogInView: View {
                 .foregroundStyle(.gray.opacity(0.75))
                 .font(.system(size: 14, weight: .regular))
         }
-
     }
     
     private func forgotPassword() -> some View {
