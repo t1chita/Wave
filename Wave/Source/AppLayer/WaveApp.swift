@@ -28,6 +28,8 @@ struct WaveApp: App {
                         SignUpView(vm: SignUpViewModel())
                     case .mainTabView:
                         MainView()
+                    case .merchantDetails(let merchant):
+                        MerchantsDetailView(vm: MerchantsDetailViewModel(merchant: merchant))
                     }
                 }
             }

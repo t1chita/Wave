@@ -23,14 +23,17 @@ struct LogInView: View {
     }
     
     private func content() -> some View {
-        VStack(spacing: 30) {
-            MyNavBar()
-            
-            loginCard()
-            
-            Spacer()
+        ScrollView {
+            VStack(spacing: 30) {
+                MyNavBar()
+                
+                loginCard()
+                
+                Spacer()
+            }
         }
         .padding(.horizontal)
+        .scrollIndicators(.hidden)
     }
     
     

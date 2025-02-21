@@ -11,6 +11,7 @@ final class NavigationManager: ObservableObject {
     public enum Destination: Codable, Hashable {
         case signUp
         case mainTabView
+        case merchantDetails(merchant: Merchant)
     }
     
     @Published var navPath = NavigationPath()

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MerchantsDetailView: View {
     @Bindable var vm: MerchantsDetailViewModel
+    @EnvironmentObject var router: NavigationManager
     var body: some View {
         ZStack {
             Color
@@ -17,7 +18,17 @@ struct MerchantsDetailView: View {
             
             content()
         }
+        .gesture(DragGesture()
+            .onChanged { value in
+                if value.translation.width > 50 {
+                    if router.navPath.count > 1 {
+                        router.navigateBack()
+                    }
+                }
+            }
+        )
         .scrollIndicators(.hidden)
+        .navigationBarBackButtonHidden()
     }
     
     private func content() -> some View {
@@ -55,44 +66,4 @@ struct MerchantsDetailView: View {
     }
 }
 
-#Preview {
-    MerchantsDetailView(vm: MerchantsDetailViewModel(merchant:  Merchant(
-        id: 1,
-        name: "GreenCharge",
-        description: "Charge green! GreenCharge produces chargers with recycled materials.",
-        esgType: "ENV",
-        esgValueRatio: "0.10",
-        products: [
-            Product(
-                id: 1,
-                name: "1M Charging Cable",
-                description: "Our newest model",
-                esgCoinsPrice: "30.00",
-                picture: "http://ec1-ec2-lb-nginx-1937007172.eu-central-1.elb.amazonaws.com/media/product_images/backiee-88600.jpg",
-                available: true,
-                merchantName: "GreenCharge",
-                merchant: 1
-            ),
-            Product(
-                id: 2,
-                name: "2M Charging Cable",
-                description: "Our advanced model",
-                esgCoinsPrice: "50.00",
-                picture: "http://ec1-ec2-lb-nginx-1937007172.eu-central-1.elb.amazonaws.com/media/product_images/backiee-55009.jpg",
-                available: true,
-                merchantName: "GreenCharge",
-                merchant: 1
-            )
-        ]
-    )))
-}
 
-
-@Observable
-final class MerchantsDetailViewModel {
-    let merchant: Merchant
-    
-    init(merchant: Merchant) {
-        self.merchant = merchant
-    }
-}

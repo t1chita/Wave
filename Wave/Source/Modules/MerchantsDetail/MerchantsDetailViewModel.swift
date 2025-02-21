@@ -5,9 +5,14 @@
 //  Created by Temur Chitashvili on 21.02.25.
 //
 
-//import Foundation
-//
-//@Observable
-//final class MerchantsDetailViewModel {
-//    
-//}
+import Foundation
+
+@Observable
+final class MerchantsDetailViewModel {
+    let merchant: Merchant
+    
+    init(merchant: Merchant) {
+        self.merchant = merchant
+    }
+}
+

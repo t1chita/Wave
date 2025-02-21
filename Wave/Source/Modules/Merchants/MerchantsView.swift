@@ -19,6 +19,7 @@ struct MerchantsView: View {
             content()
         }
         .scrollIndicators(.hidden)
+        .navigationBarBackButtonHidden()
     }
     
     private func content() -> some View {
@@ -50,7 +51,7 @@ struct MerchantsView: View {
             VStack(spacing: 25) {
                 ForEach(vm.merchants) { merchant in
                     MerchantCell(merchant: merchant) {
-                        print("Merchant Name: \(merchant.name)")
+                        router.navigate(to: .merchantDetails(merchant: merchant))
                     }
                 }
             }
