@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct User: Codable, Identifiable {
-    let id: Int?
+struct User: Codable {
     let firstName: String
     let lastName: String
     let email: String
@@ -16,7 +15,6 @@ struct User: Codable, Identifiable {
     let totalEarnedEsgCoins: String?
 
     enum CodingKeys: String, CodingKey {
-        case id
         case email
         case firstName = "first_name"
         case lastName = "last_name"

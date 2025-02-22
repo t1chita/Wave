@@ -12,9 +12,10 @@ final class UserManager {
     static let shared = UserManager()
     
     var authResponse: AuthModel?
-   
+    var user: User?
+    
     private init() { }
-
+    
     func registerUser(
         withName name: String,
         lastName: String,
@@ -29,17 +30,17 @@ final class UserManager {
                 password: password,
                 email: email
             )) { [weak self] (result: Result<AuthModel, NetworkError>) in
-            DispatchQueue.main.async { [weak self] in
-                switch result {
-                case .success(let success):
-                    self?.authResponse = success
-                    completion(true)
-                case .failure(let failure):
-                    print("DEBUG: Can't register user: \(failure)")
-                    completion(false)
+                DispatchQueue.main.async { [weak self] in
+                    switch result {
+                    case .success(let success):
+                        self?.authResponse = success
+                        completion(true)
+                    case .failure(let failure):
+                        print("DEBUG: Can't register user: \(failure)")
+                        completion(false)
+                    }
                 }
             }
-        }
     }
     
     
@@ -64,5 +65,25 @@ final class UserManager {
                     }
                 }
             }
+    }
+    
+    func getUser(
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let token = authResponse?.access else {
+            print("DEBUG: Token not found")
+            return
+        }
+        
+        NetworkService.shared.sendRequest(endPoint: EndPointsManager.getProfile(token: token)) { [weak self] (result: Result<User, NetworkError>) in
+            switch result {
+            case .success(let success):
+                self?.user = success
+                completion(true)
+            case .failure(let failure):
+                completion(false)
+                print("DEBUG: Can't get user: \(failure)")
+            }
+        }
     }
 }

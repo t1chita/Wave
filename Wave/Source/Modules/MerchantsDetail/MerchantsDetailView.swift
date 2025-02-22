@@ -22,7 +22,9 @@ struct MerchantsDetailView: View {
             .onChanged { value in
                 if value.translation.width > 50 {
                     if router.navPath.count > 1 {
+                        print(router.navPath.count)
                         router.navigateBack()
+                        print(router.navPath.count)
                     }
                 }
             }
@@ -59,7 +61,16 @@ struct MerchantsDetailView: View {
         ScrollView {
             VStack(spacing: 25) {
                 ForEach(vm.merchant.products) { product in
-                    ProductCell(product: product)
+                    ProductCell(product: product) {
+                        vm.purchaseItem(withId: product.id) { success in
+                            if success {
+                                //TODO: Add Push Notfs
+                                print("Succesfully purchased item")
+                            } else {
+                                print("Purchase Failed")
+                            }
+                        }
+                    }
                 }
             }
         }

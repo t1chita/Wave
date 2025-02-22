@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductCell: View {
     let product: Product
+    let action: () -> Void
     var body: some View {
         VStack(spacing: 22) {
             HStack {
@@ -46,7 +47,7 @@ struct ProductCell: View {
             }
             
             YRBankButton(text: "Purchase", style: .primary) {
-                print("Purchase Item")
+               action()
             }
             .frame(width: 200)
         }

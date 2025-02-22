@@ -9,13 +9,12 @@ import Foundation
 import NetworkingPackage
 
 @Observable
-final class MerchantsViewModel {
-    var merchants: [Merchant] = []
-    
-    init() {
-        getMerchants()
-    }
-    
+final class MerchantsViewModel { }
+
+
+final class MerchantsManager: ObservableObject {
+    @Published var merchants: [Merchant] = []
+
     func getMerchants() {
         NetworkService.shared.sendRequest(
             endPoint: EndPointsManager.getMerchants(

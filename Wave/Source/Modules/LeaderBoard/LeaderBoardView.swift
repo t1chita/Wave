@@ -18,6 +18,9 @@ struct LeaderBoardView: View {
             
             content()
         }
+        .onAppear {
+            vm.getLeaderBoard()
+        }
     }
     
     private func content() -> some View {

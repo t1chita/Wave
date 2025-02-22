@@ -13,25 +13,35 @@ struct Merchant: Identifiable, Codable, Hashable {
     let description: String
     let esgType: String
     let esgValueRatio: String
-    let lang: Double?
-    let lat: Double?
+    let longitude: String
+    let latitude: String
     let products: [Product]
     
     enum CodingKeys: String, CodingKey {
-        case id, name, description, products, lang, lat
+        case id, name, description, products, longitude, latitude
         case esgType = "esg_type"
         case esgValueRatio = "esg_value_ratio"
     }
-    static func == (lhs: Merchant, rhs: Merchant) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.name == rhs.name &&
-               lhs.description == rhs.description &&
-               lhs.esgType == rhs.esgType &&
-               lhs.esgValueRatio == rhs.esgValueRatio &&
-               lhs.lang == rhs.lang &&
-               lhs.lat == rhs.lat &&
-               lhs.products == rhs.products
-    }
+    
+    // Computed properties to get Double values
+       var latitudeDouble: Double? {
+           return Double(latitude)
+       }
+       
+       var longitudeDouble: Double? {
+           return Double(longitude)
+       }
+
+       static func == (lhs: Merchant, rhs: Merchant) -> Bool {
+           return lhs.id == rhs.id &&
+                  lhs.name == rhs.name &&
+                  lhs.description == rhs.description &&
+                  lhs.esgType == rhs.esgType &&
+                  lhs.esgValueRatio == rhs.esgValueRatio &&
+                  lhs.longitude == rhs.longitude &&
+                  lhs.latitude == rhs.latitude &&
+                  lhs.products == rhs.products
+       }
 }
 
 struct Product: Identifiable, Codable, Hashable {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkingPackage
 
 @Observable
 final class MerchantsDetailViewModel {
@@ -14,5 +15,21 @@ final class MerchantsDetailViewModel {
     init(merchant: Merchant) {
         self.merchant = merchant
     }
+    
+    
+    func purchaseItem(withId id: Int, completion: @escaping (Bool) -> Void) {
+        NetworkService.shared.sendRequest(endPoint:
+                                            EndPointsManager.purchaseItem(token:  UserManager.shared.authResponse?.access ?? "",
+                                                                          id: id
+                                                                         )) { (result: Result<TransactionItemModel, NetworkError>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success( _ ):
+                    completion(true)
+                case .failure(let failure):
+                    print("DEBUG: Cant purchase item \(failure)")
+                }
+            }
+        }
+    }
 }
-

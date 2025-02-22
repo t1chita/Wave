@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MerchantsView: View {
+    @State private var hasLoaded = false
     @Bindable var vm: MerchantsViewModel
     @EnvironmentObject var router: NavigationManager
+    @EnvironmentObject var merchantsManager: MerchantsManager
     var body: some View {
         ZStack {
             Color
@@ -20,6 +22,12 @@ struct MerchantsView: View {
         }
         .scrollIndicators(.hidden)
         .navigationBarBackButtonHidden()
+        .onAppear {
+            if !hasLoaded {
+                merchantsManager.getMerchants() // Your API call
+                hasLoaded = true
+            }
+        }
     }
     
     private func content() -> some View {
@@ -49,7 +57,7 @@ struct MerchantsView: View {
     private func merchantsList() -> some View {
         ScrollView {
             VStack(spacing: 25) {
-                ForEach(vm.merchants) { merchant in
+                ForEach(merchantsManager.merchants) { merchant in
                     MerchantCell(merchant: merchant) {
                         router.navigate(to: .merchantDetails(merchant: merchant))
                     }
@@ -57,9 +65,4 @@ struct MerchantsView: View {
             }
         }
     }
-}
-
-
-#Preview {
-    MainView()
 }

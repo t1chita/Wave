@@ -11,7 +11,7 @@ import SwiftUI
 struct WaveApp: App {
     @StateObject var router: NavigationManager = NavigationManager()
     @AppStorage(UserDefaults.Keys.APP_SHOWED_ONBOARDING) var showedOnBoarding: Bool = false
-
+    @StateObject var merchantsManager: MerchantsManager = MerchantsManager()
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
@@ -34,6 +34,7 @@ struct WaveApp: App {
                 }
             }
             .environmentObject(router)
+            .environmentObject(merchantsManager)
         }
     }
 }

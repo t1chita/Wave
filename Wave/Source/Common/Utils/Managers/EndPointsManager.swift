@@ -15,6 +15,10 @@ enum EndPointsManager {
     case logIn(password: String, email: String)
     case getMerchants(token: String)
     case getLeaderBoard(token: String)
+    case purchaseItem(token: String, id: Int)
+    case getProfile(token: String)
+    case getPurchasedItems(token: String)
+    case getTransactions(token: String)
 }
 
 extension EndPointsManager: EndPoint {
@@ -24,7 +28,7 @@ extension EndPointsManager: EndPoint {
     var host: String {
         switch self {
             
-        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard, .purchaseItem, .getProfile, .getPurchasedItems, .getTransactions:
             return "ec1-ec2-lb-nginx-1937007172.eu-central-1.elb.amazonaws.com"
         }
     }
@@ -32,7 +36,7 @@ extension EndPointsManager: EndPoint {
     /// Scheme to be used for the API request (e.g., HTTP or HTTPS).
     var scheme: String {
         switch self {
-        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard, .purchaseItem, .getProfile, .getPurchasedItems, .getTransactions:
             return "http"
         }
     }
@@ -48,16 +52,21 @@ extension EndPointsManager: EndPoint {
             return "/api/merchants/"
         case .getLeaderBoard:
             return "/api/leaderboard/"
-
+        case .purchaseItem, .getPurchasedItems:
+            return "/api/purchases/"
+        case .getProfile:
+            return "/api/profile/"
+        case .getTransactions:
+            return "/api/transactions/"
         }
     }
     
     /// HTTP method to be used for the request (GET, POST, etc.).
     var method: NetworkingPackage.RequestMethod {
         switch self {
-        case .registerUser, .logIn:
+        case .registerUser, .logIn, .purchaseItem:
                 .post
-        case .getMerchants , .getLeaderBoard:
+        case .getMerchants , .getLeaderBoard, .getProfile, .getPurchasedItems, .getTransactions:
                 .get
         }
     }
@@ -72,7 +81,7 @@ extension EndPointsManager: EndPoint {
                    "Accept-Encoding": "gzip, deflate, br",
                    "Connection": "keep-alive"
                ]
-        case .getMerchants(let token), .getLeaderBoard(let token):
+        case .getMerchants(let token), .getLeaderBoard(let token), .purchaseItem(let token, _ ), .getProfile(let token), .getPurchasedItems(let token), .getTransactions(let token):
             return [
                   "Content-Type": "application/json",
                   "Accept": "*/*",
@@ -98,15 +107,19 @@ extension EndPointsManager: EndPoint {
                 "password": AnyEncodable(password),
                 "email": AnyEncodable(email)
             ]
-        case .getMerchants, .getLeaderBoard:
+        case .getMerchants, .getLeaderBoard, .getProfile, .getPurchasedItems, .getTransactions:
             return nil
+        case .purchaseItem(_ , let id):
+            return [
+                "product": AnyEncodable(id),
+            ]
         }
     }
     
     /// Query parameters for the API request, if any.
     var queryParams: [String : NetworkingPackage.AnyEncodable]? {
         switch self {
-        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard, .purchaseItem, .getProfile, .getPurchasedItems, .getTransactions:
             return nil
         }
     }
@@ -114,7 +127,7 @@ extension EndPointsManager: EndPoint {
     /// Path parameters for the API request, if any.
     var pathParams: [String : String]? {
         switch self {
-        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard, .purchaseItem, .getProfile, .getPurchasedItems, .getTransactions:
             return nil
         }
     }

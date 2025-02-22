@@ -9,14 +9,14 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var router: NavigationManager
-
+    @State private var userIsLoaded: Bool = false
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(named: "myNavBackground") //
         UITabBar.appearance().unselectedItemTintColor = UIColor.white.withAlphaComponent(0.5) // Non-active tab color
-        
     }
+    
     var body: some View {
         TabView {
             MerchantsView(vm: MerchantsViewModel())
@@ -41,6 +41,18 @@ struct MainView: View {
         }
         .accentColor(.myGreen)
         .navigationBarBackButtonHidden()
+        .onAppear {
+            if !userIsLoaded {
+                UserManager.shared.getUser { success in
+                    if success {
+                        print("User Fetched Successfully")
+                    } else {
+                        print("DEBUG: Can't Fetch User in MainView")
+                    }
+                }
+                userIsLoaded = true
+            }
+        }
     }
 }
 
