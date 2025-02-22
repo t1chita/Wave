@@ -10,12 +10,23 @@ import SwiftUI
 struct MerchantsDetailView: View {
     @Bindable var vm: MerchantsDetailViewModel
     @EnvironmentObject var router: NavigationManager
+    @State private var splashScreen: Bool = false
+    @State private var paymentResultType: PaymentResultType = .success
     var body: some View {
+
         ZStack {
             Color
                 .myBackground
                 .ignoresSafeArea()
-            
+            if splashScreen {
+                PaymentResultView(style: paymentResultType) {
+                    withAnimation {
+                        splashScreen = false
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(1)
+            }
             content()
         }
         .gesture(DragGesture()
@@ -63,11 +74,9 @@ struct MerchantsDetailView: View {
                 ForEach(vm.merchant.products) { product in
                     ProductCell(product: product) {
                         vm.purchaseItem(withId: product.id) { success in
-                            if success {
-                                //TODO: Add Push Notfs
-                                print("Succesfully purchased item")
-                            } else {
-                                print("Purchase Failed")
+                            withAnimation {
+                                paymentResultType = success ? .success : .failure
+                                splashScreen = true
                             }
                         }
                     }

@@ -21,7 +21,7 @@ final class MerchantsDetailViewModel {
         NetworkService.shared.sendRequest(endPoint:
                                             EndPointsManager.purchaseItem(token:  UserManager.shared.authResponse?.access ?? "",
                                                                           id: id
-                                                                         )) { (result: Result<TransactionItemModel, NetworkError>) in
+                                                                         )) { (result: Result<Purchase, NetworkError>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success( _ ):
@@ -31,5 +31,20 @@ final class MerchantsDetailViewModel {
                 }
             }
         }
+    }
+}
+import Foundation
+
+struct Purchase: Decodable {
+    let id: Int
+    let product: Int
+    let esgCoinsSpent: String
+    let purchasedAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case product
+        case esgCoinsSpent = "esg_coins_spent"
+        case purchasedAt = "purchased_at"
     }
 }
