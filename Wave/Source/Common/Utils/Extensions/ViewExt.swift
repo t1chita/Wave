@@ -11,5 +11,9 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
            clipShape( RoundedCorner(radius: radius, corners: corners) )
        }
+    
+    func merchantModifier(merchant: Binding<Merchant?>, action: @escaping () -> Void) -> some View {
+        self.modifier(MerchantCardModifier(merchant: merchant, action: action))
+    }
 }
 

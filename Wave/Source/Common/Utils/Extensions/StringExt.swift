@@ -17,4 +17,15 @@ extension String {
     var isStringValid: Bool {
         !self.isEmpty
     }
+    
+    var firstUppercased: String {
+        guard let firstLetter = self.first else { return "" }
+        return String(firstLetter).uppercased()
+    }
+    
+    func capitalizedFirstLetter() -> String {
+        guard let first = self.first else { return self }
+        return first.uppercased() + self.dropFirst()
+    }
+    
 }

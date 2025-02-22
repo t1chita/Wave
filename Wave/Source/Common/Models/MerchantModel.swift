@@ -13,10 +13,12 @@ struct Merchant: Identifiable, Codable, Hashable {
     let description: String
     let esgType: String
     let esgValueRatio: String
+    let lang: Double?
+    let lat: Double?
     let products: [Product]
     
     enum CodingKeys: String, CodingKey {
-        case id, name, description, products
+        case id, name, description, products, lang, lat
         case esgType = "esg_type"
         case esgValueRatio = "esg_value_ratio"
     }
@@ -26,6 +28,8 @@ struct Merchant: Identifiable, Codable, Hashable {
                lhs.description == rhs.description &&
                lhs.esgType == rhs.esgType &&
                lhs.esgValueRatio == rhs.esgValueRatio &&
+               lhs.lang == rhs.lang &&
+               lhs.lat == rhs.lat &&
                lhs.products == rhs.products
     }
 }

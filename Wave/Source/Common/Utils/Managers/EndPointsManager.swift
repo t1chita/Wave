@@ -8,29 +8,13 @@
 import Foundation
 import NetworkingPackage
 
-struct User: Codable {
-    let firstName: String
-    let email: String
-    let lastName: String
-    
-    enum CodingKeys: String, CodingKey {
-        case email
-        case firstName = "first_name"
-        case lastName = "last_name"
-    }
-}
-
-struct AuthModel: Codable {
-    let refresh: String
-    let access: String
-    let user: User?
-}
 
 /// Enum that manages API endpoints for the application.
 enum EndPointsManager {
     case registerUser(name: String, lastName: String, password: String, email: String)
     case logIn(password: String, email: String)
     case getMerchants(token: String)
+    case getLeaderBoard(token: String)
 }
 
 extension EndPointsManager: EndPoint {
@@ -40,7 +24,7 @@ extension EndPointsManager: EndPoint {
     var host: String {
         switch self {
             
-        case .registerUser, .logIn, .getMerchants:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
             return "ec1-ec2-lb-nginx-1937007172.eu-central-1.elb.amazonaws.com"
         }
     }
@@ -48,7 +32,7 @@ extension EndPointsManager: EndPoint {
     /// Scheme to be used for the API request (e.g., HTTP or HTTPS).
     var scheme: String {
         switch self {
-        case .registerUser, .logIn, .getMerchants:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
             return "http"
         }
     }
@@ -62,6 +46,9 @@ extension EndPointsManager: EndPoint {
             return "/api/login/"
         case .getMerchants:
             return "/api/merchants/"
+        case .getLeaderBoard:
+            return "/api/leaderboard/"
+
         }
     }
     
@@ -70,7 +57,7 @@ extension EndPointsManager: EndPoint {
         switch self {
         case .registerUser, .logIn:
                 .post
-        case .getMerchants:
+        case .getMerchants , .getLeaderBoard:
                 .get
         }
     }
@@ -85,7 +72,7 @@ extension EndPointsManager: EndPoint {
                    "Accept-Encoding": "gzip, deflate, br",
                    "Connection": "keep-alive"
                ]
-        case .getMerchants(let token):
+        case .getMerchants(let token), .getLeaderBoard(let token):
             return [
                   "Content-Type": "application/json",
                   "Accept": "*/*",
@@ -111,7 +98,7 @@ extension EndPointsManager: EndPoint {
                 "password": AnyEncodable(password),
                 "email": AnyEncodable(email)
             ]
-        case .getMerchants:
+        case .getMerchants, .getLeaderBoard:
             return nil
         }
     }
@@ -119,7 +106,7 @@ extension EndPointsManager: EndPoint {
     /// Query parameters for the API request, if any.
     var queryParams: [String : NetworkingPackage.AnyEncodable]? {
         switch self {
-        case .registerUser, .logIn, .getMerchants:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
             return nil
         }
     }
@@ -127,7 +114,7 @@ extension EndPointsManager: EndPoint {
     /// Path parameters for the API request, if any.
     var pathParams: [String : String]? {
         switch self {
-        case .registerUser, .logIn, .getMerchants:
+        case .registerUser, .logIn, .getMerchants, .getLeaderBoard:
             return nil
         }
     }

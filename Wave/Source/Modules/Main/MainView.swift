@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var router: NavigationManager
-    
+
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -22,6 +22,16 @@ struct MainView: View {
             MerchantsView(vm: MerchantsViewModel())
                 .tabItem {
                     Label("Merchants", systemImage: "leaf")
+                }
+            
+            MerchMapView(vm: MerchMapViewModel())
+                .tabItem {
+                    Label("MerchMap", systemImage: "map.fill")
+                }
+            
+            LeaderBoardView(vm: LeaderBoardViewModel())
+                .tabItem {
+                    Label("Leaderboard", systemImage: "medal")
                 }
             
             ProfileView(vm: ProfileViewModel())
